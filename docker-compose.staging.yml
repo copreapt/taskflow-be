@@ -1,0 +1,10 @@
+services:
+  backend:
+    image: taskflow-backend:staging
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+      NODE_ENV: "staging"
+      MONGODB_URI: ${MONGODB_URI}
+    restart: unless-stopped

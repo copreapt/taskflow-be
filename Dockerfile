@@ -1,17 +1,29 @@
-# TODO Phase 5: audit and harden this image for production
-
-FROM node:22-slim
+# ---- Stage 1: Builder ----
+FROM node:22-slim AS builder
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
-
-# copy the rest of the code
+RUN npm ci --ignore-scripts
 
 COPY . .
 
+RUN npm run build
+
+# ---- Stage 2: Runner ----
+FROM node:22-slim AS runner
+
+WORKDIR /app
+
+COPY package*.json ./
+
+# Install production dependencies only
+RUN npm ci --only=production --ignore-scripts
+
+# Copy built output from builder stage
+COPY --from=builder /app/dist ./dist
+
 EXPOSE 3001
 
-CMD ["npm", "run", "start:dev"]
+CMD ["node", "dist/main.js"]
