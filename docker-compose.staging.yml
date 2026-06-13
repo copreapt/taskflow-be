@@ -1,6 +1,6 @@
 services:
   backend:
-    image: taskflow-backend:staging
+    image: copreapt/taskflow-backend:staging
     ports:
       - "3001:3001"
     environment:

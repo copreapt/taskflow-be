@@ -72,3 +72,23 @@ docker build -t taskflow-backend .
 | Image              | Content Size |
 | ------------------ | ------------ |
 | `taskflow-backend` | 86.8MB       |
+
+## Deployment
+
+### Staging
+
+- **Server**: AWS EC2 t3.micro (eu-north-1)
+- **Docker image**: copreapt/taskflow-backend:staging
+
+#### Manual deployment steps
+
+1. Build and push image to Docker Hub:
+   docker build -t copreapt/taskflow-backend:staging .
+   docker push copreapt/taskflow-backend:staging
+
+2. SSH into EC2:
+   ssh -i <staging-key>.pem ubuntu@<staging-ip>
+
+3. Pull and run:
+   docker pull copreapt/taskflow-backend:staging
+   docker-compose -f docker-compose.backend.yml up -d
