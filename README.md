@@ -77,7 +77,7 @@ docker build -t taskflow-backend .
 
 ### Staging
 
-- **Server**: AWS EC2 t3.micro (eu-north-1) ""
+- **Server**: AWS EC2 t3.micro (eu-north-1)
 - **Docker image**: copreapt/taskflow-backend:staging
 
 #### Manual deployment steps
